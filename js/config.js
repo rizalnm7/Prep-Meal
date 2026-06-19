@@ -5,4 +5,4 @@
 // asal RLS policy di schema.sql sudah dijalankan.
 // ============================================================
 const SUPABASE_URL = "https://vftaofnwvefubsjgzymh.supabase.co";
-const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZmdGFvZm53dmVmdWJzamd6eW1oIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE4NDkxODcsImV4cCI6MjA5NzQyNTE4N30.g2kcXwR3OhiaKmLhYiilv456PpGBd1pdCDil69SmPGw";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZmdGFvZm53dmVmdWJzamd6eW1oIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc4MTg0OTE4NywiZXhwIjoyMDk3NDI1MTg3fQ.fVuQRhyilZLYJ4DzvF3aX11q34uyOdOVxfEfzHJ0kwA";
