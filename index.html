@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Dapur Rencana — Meal Prep Planner</title>
+<meta name="theme-color" content="#1F5C4F" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ===== Header ===== -->
+  <header class="topbar">
+    <div class="topbar__brand">
+      <span class="topbar__mark">DR</span>
+      <div class="topbar__title">
+        <h1>Dapur Rencana</h1>
+        <p id="topbarSubtitle">Rencana makan hari ini</p>
+      </div>
+    </div>
+    <button class="iconbtn" id="btnSettings" aria-label="Pengaturan stok cepat" title="Stok cepat">⚙</button>
+  </header>
+
+  <!-- ===== Main content (each section is a "page") ===== -->
+  <main id="mainContent" class="main">
+
+    <!-- ---------- TODAY ---------- -->
+    <section class="page" id="page-today" data-page="today">
+      <div class="page__head">
+        <h2 class="page__title">Hari ini</h2>
+        <p class="page__date" id="todayDateLabel">—</p>
+      </div>
+      <div id="todayMealsList" class="stack"></div>
+      <div id="todayEmpty" class="emptystate" hidden>
+        <p class="emptystate__title">Belum ada rencana makan hari ini</p>
+        <p class="emptystate__body">Atur menu di tab Rencana supaya muncul di sini.</p>
+        <button class="btn btn--primary" data-nav="planner">Buka Rencana</button>
+      </div>
+    </section>
+
+    <!-- ---------- PLANNER ---------- -->
+    <section class="page" id="page-planner" data-page="planner" hidden>
+      <div class="page__head page__head--row">
+        <button class="iconbtn" id="weekPrev" aria-label="Minggu sebelumnya">‹</button>
+        <div>
+          <h2 class="page__title">Rencana Mingguan</h2>
+          <p class="page__date" id="weekRangeLabel">—</p>
+        </div>
+        <button class="iconbtn" id="weekNext" aria-label="Minggu berikutnya">›</button>
+      </div>
+      <div id="weekDaysList" class="stack"></div>
+    </section>
+
+    <!-- ---------- RECIPES ---------- -->
+    <section class="page" id="page-recipes" data-page="recipes" hidden>
+      <div class="page__head page__head--row">
+        <h2 class="page__title">Resep</h2>
+        <button class="btn btn--primary btn--sm" id="btnAddRecipe">+ Resep baru</button>
+      </div>
+      <input type="search" id="recipeSearch" class="textinput" placeholder="Cari resep..." />
+      <div id="recipeGrid" class="recipegrid"></div>
+      <div id="recipeEmpty" class="emptystate" hidden>
+        <p class="emptystate__title">Belum ada resep</p>
+        <p class="emptystate__body">Tambahkan resep pertamamu untuk mulai merencanakan meal prep.</p>
+      </div>
+    </section>
+
+    <!-- ---------- PANTRY / STOK ---------- -->
+    <section class="page" id="page-pantry" data-page="pantry" hidden>
+      <div class="page__head page__head--row">
+        <h2 class="page__title">Stok Bahan</h2>
+        <button class="btn btn--primary btn--sm" id="btnAddIngredient">+ Bahan</button>
+      </div>
+      <input type="search" id="pantrySearch" class="textinput" placeholder="Cari bahan..." />
+      <div id="pantryList" class="stack"></div>
+      <div id="pantryEmpty" class="emptystate" hidden>
+        <p class="emptystate__title">Stok masih kosong</p>
+        <p class="emptystate__body">Tambahkan bahan yang biasa kamu punya di rumah.</p>
+      </div>
+    </section>
+
+    <!-- ---------- SHOPPING ---------- -->
+    <section class="page" id="page-shopping" data-page="shopping" hidden>
+      <div class="page__head page__head--row">
+        <h2 class="page__title">Daftar Belanja</h2>
+        <button class="btn btn--primary btn--sm" id="btnGenerateList">↻ Generate</button>
+      </div>
+      <p class="page__hint" id="shoppingRangeHint">Dihitung dari rencana 7 hari ke depan dibanding stok kamu.</p>
+
+      <div class="shopsection">
+        <h3 class="shopsection__title">Perlu dibeli</h3>
+        <div id="shoppingNeedList" class="stack"></div>
+        <div id="shoppingNeedEmpty" class="emptystate emptystate--sm" hidden>
+          <p class="emptystate__body">Semua bahan sudah tercukupi di stok 🎉</p>
+        </div>
+      </div>
+
+      <div class="shopsection">
+        <h3 class="shopsection__title">Sudah dibeli / dicentang</h3>
+        <div id="shoppingCheckedList" class="stack"></div>
+      </div>
+
+      <button class="btn btn--ghost btn--block" id="btnAddManualItem">+ Tambah item manual</button>
+    </section>
+
+  </main>
+
+  <!-- ===== Bottom nav ===== -->
+  <nav class="bottomnav" id="bottomNav">
+    <button class="bottomnav__item is-active" data-nav="today">
+      <span class="bottomnav__icon">☀</span><span>Hari Ini</span>
+    </button>
+    <button class="bottomnav__item" data-nav="planner">
+      <span class="bottomnav__icon">📅</span><span>Rencana</span>
+    </button>
+    <button class="bottomnav__item" data-nav="recipes">
+      <span class="bottomnav__icon">📖</span><span>Resep</span>
+    </button>
+    <button class="bottomnav__item" data-nav="pantry">
+      <span class="bottomnav__icon">🥫</span><span>Stok</span>
+    </button>
+    <button class="bottomnav__item" data-nav="shopping">
+      <span class="bottomnav__icon">🛒</span><span>Belanja</span>
+    </button>
+  </nav>
+
+  <!-- ===== Generic modal sheet ===== -->
+  <div class="sheet-overlay" id="sheetOverlay" hidden>
+    <div class="sheet" id="sheet" role="dialog" aria-modal="true">
+      <div class="sheet__handle"></div>
+      <div class="sheet__content" id="sheetContent"></div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" hidden></div>
+
+  <!-- First-run config check -->
+  <div class="configgate" id="configGate" hidden>
+    <div class="configgate__box">
+      <p class="emptystate__title">Tidak bisa terhubung</p>
+      <p class="emptystate__body" id="configGateText">Memeriksa konfigurasi...</p>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/config.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/db.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/recipes.js"></script>
+  <script src="js/pantry.js"></script>
+  <script src="js/planner.js"></script>
+  <script src="js/shopping.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
