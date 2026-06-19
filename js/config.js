@@ -4,5 +4,5 @@
 // SUPABASE_ANON_KEY aman untuk dipakai di frontend (public key),
 // asal RLS policy di schema.sql sudah dijalankan.
 // ============================================================
-const SUPABASE_URL = "https://YOUR-PROJECT-ID.supabase.co";
-const SUPABASE_ANON_KEY = "YOUR-ANON-PUBLIC-KEY";
+const SUPABASE_URL = "https://vftaofnwvefubsjgzymh.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_Ta1UZ6ukqSSHHfBEGnbDPw_EtTcwgT6";
