@@ -131,11 +131,21 @@ const Recipes = {
     `, (content) => {
       let rowState = [...lines];
 
+      const readRowsFromDOM = () => {
+        const domRows = content.querySelectorAll("#ingredientRows .dynrow");
+        return Array.from(domRows).map(row => ({
+          name: row.querySelector(".ing-name").value,
+          quantity: row.querySelector(".ing-qty").value,
+          unit: row.querySelector(".ing-unit").value,
+        }));
+      };
+
       const refreshRows = () => {
         content.querySelector("#ingredientRows").innerHTML = renderIngredientRows(rowState);
       };
 
       content.querySelector("#btnAddIngRow").addEventListener("click", () => {
+        rowState = readRowsFromDOM(); // simpan dulu apa yang sudah diketik
         rowState.push({ name: "", quantity: "", unit: "gram" });
         refreshRows();
       });
@@ -143,6 +153,7 @@ const Recipes = {
       content.querySelector("#ingredientRows").addEventListener("click", (e) => {
         const delBtn = e.target.closest("[data-del-idx]");
         if (delBtn) {
+          rowState = readRowsFromDOM(); // simpan dulu apa yang sudah diketik di baris lain
           rowState.splice(Number(delBtn.dataset.delIdx), 1);
           if (!rowState.length) rowState.push({ name: "", quantity: "", unit: "gram" });
           refreshRows();
